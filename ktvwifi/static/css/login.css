@@ -1,0 +1,200 @@
+
+canvas{
+  position: absolute;
+  top:0;
+  left:0;
+  z-index:-999;
+}
+
+.centerForm{
+  z-index: -1;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 30%;
+  transform: translate(-50%, -50%);
+}
+
+
+.centerFormHeader{
+  text-align: center;
+  margin-bottom: 35px;
+}
+
+#centerFormHeader h3{
+  /* position: absolute; */
+  margin: auto;
+  display: block;
+  margin-top: 15px;
+  font-weight: bold;
+}
+
+#centerFormHeader p{
+  text-align: center;
+}
+
+.loginCred{
+  margin: auto;
+  display: block;
+  position: relative;
+  width: 80%;
+  height: 40px;
+  border : solid white;
+  border-radius: 5px;
+  border-color: black;
+  border-width: 1px;
+  padding-left: 10px;
+  margin-bottom: 25px;
+}
+
+.loginCred:focus {
+  border-color: skyblue;
+}
+
+#id_username_login , #id_username_signup{
+  background: url("/static/icons/iconUser.png") no-repeat scroll 7px 7px;
+  background-size: 25px;
+  padding-left:35px;
+}
+
+#id_password_login , #id_password1 , #id_password2{
+  background: url("/static/icons/iconLock.png") no-repeat scroll 7px 7px;
+  background-size: 25px;
+  padding-left:35px;
+}
+
+#id_submit_login{
+  margin-top: 10%;
+  border: none;
+  color: white;
+  text-align: center;
+  background-color: turquoise;
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+ 
+}
+
+#id_submit_login:hover {background-color: rgb(56, 206, 191)}
+
+#id_submit_login:active {
+  background-color: rgb(50, 190, 176);
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+
+#id_register_login , #id_forgot_login{
+  display:block;
+  margin-left: 45px;
+  font-size: 14px;
+}
+
+#id_forgot_login{
+  display:block;
+  margin-top: 10px;
+}
+
+#id_email , #id_email_signup{
+  background: url("/static/icons/iconEmail.png") no-repeat scroll 7px 7px;
+  background-size: 25px;
+  padding-left:35px;
+}
+
+
+/* SignupForm  */
+#id_username_signup{
+  margin-top: 22%;
+}
+
+#errorMessage{
+  background-color: red;
+ text-align: center;
+ color:white;
+}
+
+#infoMessage{
+  background-color: aqua;
+ text-align: center;
+ color:white;
+}
+
+
+
+/* Password Reset */
+.resetForm{
+  height: 200px;
+  width: 290px;
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%,32%);
+  /* background-color: grey; */
+}
+.resetFormHeader{
+  text-align: center;
+}
+#id_email{
+  margin: auto;
+  height: 20%;
+  width: 100%;
+  margin-left: 10%;
+  background: url("/static/icons/iconLock.png") no-repeat scroll 7px 7px;
+  background-size: 20px;
+  padding-left:35px;
+  border-radius: 12px;
+}
+.pwdResetButton{
+  display: block;
+  margin-top: 10%;
+  margin-left: 10%;
+  color: white;
+  height: 20%;
+  width: 100%;
+  border-radius: 12px;
+  font-weight: 700;
+  background-image: linear-gradient(-45deg, #FFA63D, #FF3D77, #338AFF, #3CF0C5);
+  transition: 0.1s;
+  box-shadow: 0 4px 6px rgba(50,50,93,.11), 0 1px 3px rgba(0,0,0,.08);
+  /* animation : anime 16s linear infinite; */
+}
+.pwdResetButton:hover , #submitContact:hover {
+  background-position: right center; 
+}
+
+.pwdResetButton:active , #submitContact:active {
+box-shadow: 0 4px #666;
+transform: translateY(4px);
+}
+
+
+#submitContact{
+  border-color: aqua;
+  color: white;
+  background-image: linear-gradient(-45deg, #FFA63D, #FF3D77, #338AFF, #3CF0C5);
+  transition: 0.1s;
+}
+
+
+/* Mobile screen  */
+@media screen and (max-width: 600px) {
+  
+  .centerForm{
+    width: 80%;
+  }
+
+  .loginCred{
+    width: 90%;
+    height: 40px;
+  }
+
+  #id_register_login , #id_forgot_login{
+    margin-left: 15px;
+  }
+  
+  #id_email , #pwdResetEmail{
+    margin:auto;
+    }
+    #pwdResetEmail{
+    margin-top: 10%;
+    }
+
+
+}

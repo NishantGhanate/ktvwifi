@@ -1,0 +1,133 @@
+{% extends 'ktvwifi/staffDashboard/main.html' %}
+
+{% load static %}
+{% block title %} Contacts {% endblock%}
+
+          
+{% block content %}
+
+<div class="newContainer" >
+
+    <form action="" method="get">
+      <div class="form-row">
+        <div class="form-group col-md-3">
+          <label for="username">Name</label>
+          <input type="text" class="form-control" name="name" id="id_name" placeholder="Name">
+        </div>
+        <div class="form-group col-md-3">
+          <label for="username">Phone</label>
+          <input type="text" class="form-control" name="phone" id="id_phone" placeholder="Phone">
+        </div>
+        <div class="form-group col-md-3">
+          <label for="Email">Email</label>
+          <input type="text" class="form-control" name="email" id="id_email" placeholder="email">
+        </div>
+        <div class="form-group col-md-3">
+          <button type="submit" class="btn btn-primary" style="margin-top: 30px;">  <i class="fa fa-search"></i> Search </button>
+        </div> 
+    </form>
+
+      <br>
+      <table class="table table-striped" style="margin: auto;">
+        <thead class="thead-dark">
+          <tr>
+            <th> Name  </th>
+            <th> Phone  </th>
+            <th> Email </th>
+            <th> Title </th>
+            <th> Date </th>
+            <th> Status </th>
+            <th> View  </th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for c in contacts %}
+            <tr>
+              <td> {{c.name}} </td>
+              <td> {{c.phone}}  </td>
+              <td> {{c.email}} </td>
+              <td> {{c.title}} </td>
+              <td> {{c.date_created}} </td>
+              <td> {{c.get_status_display}} </td>
+              <td>  
+               <button type="button" class="btn btn-primary view" data-toggle="modal" data-target="#readContactModal" onclick="contact('{{ forloop.counter0 }}')">
+                View
+              </button> 
+              <input type="hidden" class="complaintId" value="{{c.id}}"/>
+              <input type="hidden" class="contactName" value="{{c.name}}"/>
+              <input type="hidden" class="contactEmail" value="{{c.email}}"/>
+              <input type="hidden" class="contactTitle" value="{{c.title}}"/>
+              <input type="hidden" class="contactMessage" value="{{c.message}}"/>
+              <input type="hidden" class="contactDate" value="{{c.date_created}}"/>
+              <input type="hidden" class="contactsolution" value="{{c.solution}}"/>
+            </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+      </table>
+  
+      <div>
+          <br>
+        {% if contacts.has_other_pages %}
+        <ul class="pagination">
+          {% if contacts.has_previous %}
+            <li class="page-item"><a class="page-link" href="?page={{ contacts.previous_page_number }}">&laquo;</a></li>
+          {% else %}
+            <li class="disabled"><a class="page-link">&laquo;</a></li>
+          {% endif %}
+          {% for i in contacts.paginator.page_range %}
+            {% if contacts.number == i %}
+              <li class="page-item"><a class="page-link">{{ i }} <span class="sr-only">(current)</span></a></li>
+            {% else %}
+              <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+            {% endif %}
+          {% endfor %}
+          {% if contacts.has_next %}
+            <li class="page-item"><a class="page-link" href="?page={{ contacts.next_page_number }}">&raquo;</a></li>
+          {% else %}
+            <li class="disabled"><a class="page-link">&raquo;</a></li>
+          {% endif %}
+        </ul>
+        {% endif %}
+      </div>
+</div>
+
+<form action="/dashboard/contacts" enctype="multipart/form-data" method="post">
+  {% csrf_token %}
+<!-- Read Modal -->
+<div class="modal fade" id="readContactModal" tabindex="-1" role="dialog" aria-labelledby="readContactModal" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h6 class="modal-title" id="readContactTitle"></h6>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="username">Username:</label>
+          <input id="readContactName" type="text" name="username" class="form-control" placeholder="Username" readonly>
+        </div>
+          <div class="form-group">
+            <label for="Detail Info">Message:</label>
+            <textarea id="readContactTextArea" name="message" class="form-control" placeholder="Write something.." style="height: 100px;" readonly></textarea>
+          </div>
+          <div class="form-group">
+            <label for="response">Response:</label>
+            <textarea id="readContactTextAreaSol" name="response" class="form-control" placeholder="Write something.." style="height: 100px;" ></textarea>
+          </div>
+      </div>
+      <!-- modal-footer -->
+      <div class="modal-footer">
+        <input type="hidden" name="contact_id" id="contact_id" value="">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Send Email</button>
+      </div>
+    </div>
+  </div>
+</div>
+</form>
+
+<script src="{% static 'js/main.js' %}"></script>
+{% endblock %}

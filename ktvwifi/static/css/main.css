@@ -1,0 +1,116 @@
+/* * {
+  padding: 0px;
+  margin: 0px;
+  box-sizing: border-box;
+  
+} */
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+a{
+  text-decoration: none !important;
+}
+
+.buttoncheck {
+  width: 160px;
+  height: 40px;
+  position: absolute;
+  top :80%;
+  left: 50%;
+  transform: translate(-50%,-10%);
+  text-align: center;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 18px;
+  border-color: aqua;
+  color: white;
+  background-image: linear-gradient(-45deg, #FFA63D, #FF3D77, #338AFF, #3CF0C5);
+
+}
+
+.buttoncheck a {
+  cursor: pointer;
+  color: #FFFFFF !important;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.buttoncheck a:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+.buttoncheck:hover a {
+  padding-right: 25px;
+}
+
+.buttoncheck:hover a:after {
+  opacity: 1;
+  right: 0;
+}
+
+@keyframes animatebottom { 
+  from{ 
+    bottom:-50px; 
+  } 
+  to{ 
+    bottom:10; 
+  }
+}
+
+@media screen and (max-width: 600px) {
+  #logo{
+    width: 80%;
+  }
+  .buttoncheck{
+    display: block;
+  }
+}
+
+
+/* .footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: white;
+  color: black;
+  text-align: center;
+  z-index: -1;
+} */
+
+#scrollTopButon {
+  display: none;
+  position: fixed;
+  bottom: 20px;
+  right: 30px;
+  z-index: 99;
+  font-size: 18px;
+  border: none;
+  outline: none;
+  background-color: red;
+  color: white;
+  cursor: pointer;
+  padding: 15px;
+  border-radius: 4px;
+}
+
+#scrollTopButon:hover {
+  background-color: #555;
+}
+
+
+
+
+

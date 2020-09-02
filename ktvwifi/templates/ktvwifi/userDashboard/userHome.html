@@ -1,0 +1,30 @@
+{% extends 'ktvwifi/main.html' %}
+
+{% load static %}
+{% block title %} Home {% endblock%}
+
+
+{% block content %}
+
+   
+
+<div class="container" style="margin-top: 100px;">
+
+    <div class="shadow p-4 mb-4 bg-white">
+        <Button class="btn float-right"> 
+            <a href="#"> View all </a>
+        </Button> 
+       <h5> Total Recharges :  {{ rechargesCount }}  </h5>
+    </div>
+
+    <div class="shadow p-4 mb-4 bg-white">
+        <Button class="btn  float-right"> 
+            <a href="/complaints"> View all </a>
+        </Button> 
+       <h5> Total Complaints :  {{ complaintsCount }}  </h5>
+    </div>
+
+</div>
+
+
+{% endblock %}

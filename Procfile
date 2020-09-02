@@ -1,0 +1,1 @@
+web: gunicorn ktv.wsgi --log-file -

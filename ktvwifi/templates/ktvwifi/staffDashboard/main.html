@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {% load static %}
+    {% load tags %}
+
+    <title> {% block title %} Admin  {% endblock%} </title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/dashboard.css' %}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="shortcut icon" href="">
+  </head>
+  <body >
+    <nav class="navbar navbar-expand-lg navbar-light bg-light " >
+      <span style="font-size:25px;cursor:pointer" onclick="openNav()">&#9776; open</span>
+      <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="/dashboard/home"> <i class="fa fa-home"></i>  Home </a>
+        <a href="/dashboard/customers"><i class="fa fa-user"></i>  Customers</a>
+        <a href="/dashboard/home"><i class="fa fa-google-wallet"></i>  Recharges</a>
+        <a href="/dashboard/complaints"><i class="fa fa-pencil-square-o"></i>  Complaints 
+          <span class="badge badge-danger ml-2"> {% number_of_complaints request %} </span> 
+        </a>
+        <a href="/dashboard/contacts"><i class="fa fa-book"></i> Contacts
+          <span class="badge badge-danger ml-2"> {% number_of_contacts request %} </span> 
+        </a>
+        <a href="/logout"><i class="fa fa-sign-out"></i>  Logout</a>
+        </button>
+      </div>
+    </nav>
+
+  {% block content %}
+    
+  {% endblock %}
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  </body>
+
+  <script src="{% static 'js/dashboard.js' %}"></script>
+</html>

@@ -1,0 +1,156 @@
+{% extends 'ktvwifi/main.html' %}
+
+{% load static %}
+{% block title %} Complaints {% endblock%}
+
+
+{% block content %}
+
+{% if form.errors %}
+    {% for field in form %}
+        {% for error in field.errors %}
+            <div class="alert alert-danger">
+                <strong>{{ error|escape }}</strong>
+            </div>
+        {% endfor %}
+    {% endfor %}
+    {% for error in form.non_field_errors %}
+        <div class="alert alert-danger">
+            <strong>{{ error|escape }}</strong>
+        </div>
+    {% endfor %}
+{% endif %}
+
+
+<div class="container" style="margin-top: 20px;">
+  <table class="table table-striped">
+    <thead class="thead-dark">
+      <tr>
+        <th> Title </th>
+        <th> Date </th>
+        <th> Status </th>
+        <th> View </th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for c in complaints %}
+        <tr>
+          <td>{{c.title}}</td>
+          <td>{{c.date_created}}</td>
+          <td>{{c.get_status_display }}</td>
+          <td> 
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#readComplaintModal" onclick="show('{{ forloop.counter0 }}')">
+              View
+            </button>
+          </td>
+           <input type="hidden" class="complaintDate" value="{{c.date_created}}"/>
+           <input type="hidden" class="complaintTitle" value="{{c.title}}"/>
+           <input type="hidden" class="complaintMessage" value="{{c.message}}"/>
+           <input type="hidden" class="complaintSol" value="{{c.solution}}"/>
+        </tr>
+        {% endfor %}
+      </tbody>
+  </table>
+  <div>
+    {% if complaints.has_other_pages %}
+    <ul class="pagination">
+      {% if complaints.has_previous %}
+        <li class="page-item"><a class="page-link" href="?page={{ plans.previous_page_number }}">&laquo;</a></li>
+      {% else %}
+        <li class="disabled"><a class="page-link">&laquo;</a></li>
+      {% endif %}
+      {% for i in complaints.paginator.page_range %}
+        {% if complaints.number == i %}
+          <li class="active"><a class="page-link">{{ i }} </a><span class="sr-only">(current)</span></li>
+        {% else %}
+          <li><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+        {% endif %}
+      {% endfor %}
+      {% if complaints.has_next %}
+        <li><a class="page-link"  href="?page={{ plans.next_page_number }}">&raquo;</a></li>
+      {% else %}
+        <li class="disabled"><a class="page-link">&raquo;</a></li>
+      {% endif %}
+    </ul>
+    {% endif %}
+    </div>
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#writeComplaintModal">
+      Write Complaint
+    </button>
+ </div>
+
+
+<!-- Read Modal -->
+<div class="modal fade" id="readComplaintModal" tabindex="-1" role="dialog" aria-labelledby="readComplaintModal" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="readComplaintDate">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <div class="form-group">
+            <label for="Title">Title:</label>
+            <input id="readComplaintTitle" type="text" name="title" class="form-control" placeholder="Title" readonly>
+          </div>
+          <div class="form-group">
+            <label for="Detail Info">Complaint details:</label>
+            <textarea id="readComplaintTextArea" name="message" class="form-control" placeholder="Write something.." style="height: 100px;" readonly></textarea>
+          </div>
+          <div class="form-group">
+            <label for="Detail Info">Complaint response:</label>
+            <textarea id="readComplaintTextAreaSol" name="sol" class="form-control" placeholder="Write something.." style="height: 100px;" readonly></textarea>
+          </div>
+      </div>
+      <!-- modal-footer -->
+    </div>
+  </div>
+</div>
+
+
+<!-- Write Modal -->
+  <form action="/complaints" enctype="multipart/form-data" method="post">
+    {% csrf_token %}
+  <div class="modal fade" id="writeComplaintModal" tabindex="-1" role="dialog" aria-labelledby="writeComplaintModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Write a new complaint</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+              <label for="Title">Title:</label>
+              <input type="text" name="title" class="form-control" placeholder="Title">
+            </div>
+            <div class="form-group">
+              <label for="Detail Info">Complaint details:</label>
+              <textarea id="message" name="message" class="form-control" placeholder="Write something.." style="height: 100px;"></textarea>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Submit</button>    
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+<style>
+  .table .thead-dark th {
+    color: white;
+    background-color: #1c2a48      ;
+    border-color: white ;
+   
+  }
+
+</style>
+
+
+
+{% endblock %}

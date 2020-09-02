@@ -1,0 +1,107 @@
+
+{% extends 'ktvwifi/main.html' %}
+{% load static %}
+
+{% block title %} Contact us {% endblock%}
+
+{% block content %}
+
+
+{% if form.errors %}
+    {% for field in form %}
+        {% for error in field.errors %}
+            <div class="alert alert-danger">
+                <strong>{{ error|escape }}</strong>
+            </div>
+        {% endfor %}
+    {% endfor %}
+    {% for error in form.non_field_errors %}
+        <div class="alert alert-danger">
+            <strong>{{ error|escape }}</strong>
+        </div>
+    {% endfor %}
+{% endif %}
+
+<!-- Contact Us Section -->
+<section class="Material-contact-section section-padding section-dark">
+    <div class="container" style="margin-top: 30px;">
+        <div class="row">
+            <!-- Section Titile -->
+            <div class="col-md-12 wow animated fadeInLeft" data-wow-delay=".2s">
+                <h1 class="section-title">Love to Hear From You </h1>
+            </div>
+        </div>
+        <div class="row">
+            <!-- Section Titile -->
+            <div class="col-md-6 mt-3 contact-widget-section2 wow animated fadeInLeft" data-wow-delay=".2s">
+              <p>Got any queries ? send us an message or feel free to visit our office during working works .</p>
+
+              <div class="find-widget">
+               Company:  <a href="ktvwifi.com">KTV</a>
+              </div>
+              <div class="find-widget">
+               Address: <a href="#">Kamathipura 9th lane , bldg no.30 </a>
+              </div>
+              <div class="find-widget">
+                Maps :  <a href="https://www.google.co.in/maps/place/18%C2%B057'55.5%22N+72%C2%B049'36.1%22E/@18.9654323,72.8265135,20.5z/data=!4m6!3m5!1s0x0:0x0!7e2!8m2!3d18.9654132!4d72.8266916?hl=en"> Link </a>
+              </div>
+              <div class="find-widget">
+                Phone:  <a href="#">+ 022-23004461</a>
+              </div>
+              <div class="find-widget">
+                 Officer hours: <a href="#">Mon to Sat: 11:30 AM - 6.30 PM</a>
+              </div>
+              <br>
+              <div class="find-widget">
+              Scan this to copy on your phone : <br> <img src="/static/images/qr-code-contact.svg" alt="" width="150" height="150">
+             </div>
+              <br>
+            </div>
+
+            <!-- contact form -->
+            <div class="col-md-6 wow animated fadeInRight" data-wow-delay=".2s">
+                <form action="/contactus" class="shake" role="form" method="post" id="contactForm" name="contact-form" data-toggle="validator">
+                    {% csrf_token %}   
+                    <!-- Name -->
+                    <div class="form-group label-floating">
+                      <label class="control-label" for="name">Name</label>
+                      <input class="form-control" id="name" type="text" name="name" required data-error="Please enter your name">
+                      <div class="help-block with-errors"></div>
+                    </div>
+                    <div class="form-group label-floating">
+                        <label class="control-label" for="phone">Phone</label>
+                        <input class="form-control" id="phone" type="tel" name="phone" aria-required=”true” required data-error="Please enter your Phone number" >
+                        <div class="help-block with-errors"></div>
+                    </div>
+                    <!-- email -->
+                    <div class="form-group label-floating">
+                      <label class="control-label" for="email">Email</label>
+                      <input class="form-control" id="email" type="email" name="email" required data-error="Please enter your Email">
+                      <div class="help-block with-errors"></div>
+                    </div>
+                    <!-- Title -->
+                    <div class="form-group label-floating">
+                      <label class="control-label">Title</label>
+                      <input class="form-control" id="msg_title" type="text" name="title" required data-error="Please enter your message msg title">
+                      <div class="help-block with-errors"></div>
+                    </div>
+                    <!-- Message -->
+                    <div class="form-group label-floating">
+                        <label for="message" class="control-label">Message</label>
+                        <textarea class="form-control" rows="3" id="message" name="message" required data-error="Write your message"></textarea>
+                        <div class="help-block with-errors"></div>
+                    </div>
+                    <!-- Form Submit -->
+                    <div class="form-submit mt-5">
+                        <button class="btn btn-common" type="submit" id="submitContact"><i class="material-icons mdi mdi-message-outline"></i> Send Message</button>
+                        <div id="msgSubmit" class="h3 text-center hidden"></div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <input type="hidden" name="ip" id="ip" value="{{ip}}">
+                </form>
+            </div>
+        </div>
+    </div>
+  </section>
+
+{% endblock %}

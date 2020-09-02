@@ -1,0 +1,131 @@
+{% extends 'ktvwifi/staffDashboard/main.html' %}
+
+{% load static %}
+{% block title %} customers {% endblock%}
+
+          
+{% block content %}
+
+<div class="newContainer">
+  <form action="" method="get">
+       {{myfilter.form}}
+       <button type="submit" class="btn btn-primary" style="margin-left:10px">
+        <i class="fa fa-search"></i> Search
+      </button>
+  </form>
+    <br>
+    <table class="table table-striped" style="margin: auto;">
+      <thead class="thead-dark">
+        <tr>
+          <th> Complaint Id  </th>
+          <th> Username  </th>
+          <th> Title </th>
+          <th> Status </th>
+          <th> Date  </th>
+          <th> View  </th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for c in complaints %}
+          <tr>
+            <td>{{c.complaint_id}} </td>
+            <td> {{c.user}}  </td>
+            <td> {{c.title}} </td>
+            <td> {{c.get_status_display}} </td>
+            <td> {{c.date_created}} </td>
+            <td>  
+             <button type="button" class="btn btn-primary view" data-toggle="modal" data-target="#readComplaintModal" onclick="show('{{ forloop.counter0 }}')">
+              View
+            </button> 
+            <input type="hidden" class="complaintId" value="{{c.complaint_id}}"/>
+            <input type="hidden" class="complaintUser" value="{{c.user}}"/>
+            <input type="hidden" class="complaintTitle" value="{{c.title}}"/>
+            <input type="hidden" class="complaintMessage" value="{{c.message}}"/>
+            <input type="hidden" class="complaintDate" value="{{c.date_created}}"/>
+            <input type="hidden" class="complaintSol" value="{{c.solution}}"/>
+          </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+    </table>
+
+    <div>
+        <br>
+      {% if complaints.has_other_pages %}
+      <ul class="pagination">
+        {% if complaints.has_previous %}
+          <li class="page-item"><a class="page-link" href="?page={{ complaints.previous_page_number }}">&laquo;</a></li>
+        {% else %}
+          <li class="disabled"><a class="page-link">&laquo;</a></li>
+        {% endif %}
+        {% for i in complaints.paginator.page_range %}
+          {% if complaints.number == i %}
+            <li class="page-item"><a class="page-link">{{ i }} <span class="sr-only">(current)</span></a></li>
+          {% else %}
+            <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+          {% endif %}
+        {% endfor %}
+        {% if complaints.has_next %}
+          <li class="page-item"><a class="page-link" href="?page={{ complaints.next_page_number }}">&raquo;</a></li>
+        {% else %}
+          <li class="disabled"><a class="page-link">&raquo;</a></li>
+        {% endif %}
+      </ul>
+      {% endif %}
+    </div>
+
+</div>
+
+<form action="/dashboard/complaints" enctype="multipart/form-data" method="post">
+  {% csrf_token %}
+<!-- Read Modal -->
+<div class="modal fade" id="readComplaintModal" tabindex="-1" role="dialog" aria-labelledby="readComplaintModal" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h6 class="modal-title" id="readComplaintDate">Modal title</h6>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="username">Username:</label>
+          <input id="readComplaintUsername" type="text" name="username" class="form-control" placeholder="Username" readonly>
+        </div>
+          <div class="form-group">
+            <label for="Title">Title:</label>
+            <input id="readComplaintTitle" type="text" name="title" class="form-control" placeholder="Title" readonly>
+          </div>
+          <div class="form-group">
+            <label for="Detail Info">Complaint details:</label>
+            <textarea id="readComplaintTextArea" name="message" class="form-control" placeholder="Write something.." style="height: 100px;" readonly></textarea>
+          </div>
+          <div class="form-group">
+            <label>Status</label>
+            <select name="status" class="selectpicker" data-title="Select Status" data-style="btn-default btn-block" data-menu-style="dropdown-blue">
+            {% for x,y in form.fields.status.choices %}
+               <option value="{{ x }}"{% if form.fields.status.value == x %} selected{% endif %}>{{ y }}</option>
+            {% endfor %}
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="Solution">Solution:</label>
+            <textarea id="readComplaintTextAreaSol" name="solution" class="form-control" placeholder="Write something.." style="height: 100px;" ></textarea>
+          </div>
+      </div>
+      <!-- modal-footer -->
+      <div class="modal-footer">
+        <input type="hidden" name="complaint_id" id="readComplaintId" value="">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+</form>
+
+<script src="{% static 'js/main.js' %}"></script>
+<script src="{% static 'js/dashboard.js' %}"></script>
+
+{% endblock %}

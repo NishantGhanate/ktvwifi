@@ -1,0 +1,28 @@
+
+{% extends 'ktvwifi/main.html' %}
+{% load static %}
+
+{% block title %} Thank you {% endblock%}
+
+{% block content %}
+
+
+{% if thanks %}
+
+
+<div class="jumbotron text-center" >
+    <h4 class="display-3">Thank You!</h4>
+        <p class="lead"><strong>Please check your email {{thanks}}</strong> </p>
+    <hr>
+    <p>Having trouble? <a href="/contactus">Contact us</a></p>
+    <p class="lead">
+    <a class="btn btn-primary btn-sm" href="/" role="button">Continue to homepage</a>
+    </p>
+</div>
+
+
+{% endif %}
+
+
+
+{% endblock %}

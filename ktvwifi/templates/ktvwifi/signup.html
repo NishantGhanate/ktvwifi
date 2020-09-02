@@ -1,0 +1,32 @@
+{% extends 'ktvwifi/main.html' %}
+
+{% load static %}
+{% block title %} Signup page {% endblock%}
+
+{% block content %}
+
+<form action="/signup" method="post">
+  {% csrf_token %}
+  <div class='centerForm'>
+    <div class='centerFormHeader'>
+      <h3>USER SIGNUP</h3>
+    </div>
+    <input name="username"  class="loginCred" id="id_username_signup"  autofocus="" type="text" maxlength="150" placeholder="Username.." required>
+    <input name="email"     class="loginCred" id="id_email_signup"     type="email" maxlength="254" placeholder="Email.." required>
+    <input name="password1" class="loginCred" id="id_password1" type="password" placeholder="Enter password..." autocomplete="new-password" required>
+    <input name="password2" class="loginCred" id="id_password2" type="password" placeholder="Re-enter Password..." autocomplete="new-password" required="" >
+    <input  type="submit"  class="loginCred" id="id_submit_login" value="SIGNUP">
+    <a href="/login" class="anchorLogin" id="id_register_login"> Already have an account ?</a>
+    {% if messages %}
+    <div id='errorMessage'>
+      {% for message in messages %}
+        <span>{{message}}</span>
+      {% endfor %}  
+    </div>
+    {% endif %}
+  </div>
+</form>
+
+
+
+{% endblock %}

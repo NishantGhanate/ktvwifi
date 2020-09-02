@@ -1,0 +1,36 @@
+{% extends 'ktvwifi/main.html' %}
+
+{% load static %}
+{% block title %} Login page {% endblock%}
+
+{% block content %}
+
+<form action="/login" method="post">
+  {% csrf_token %}
+   <div class='centerForm'>
+    <div class='centerFormHeader'>
+      <h3>USER LOGIN</h3>
+      <p>Welcome back </p>
+    </div>
+      <input name="username" class="loginCred" id="id_username_login" autofocus="" required="true" type="text" maxlength="150" placeholder="Username..">
+      <input name="password" class="loginCred" id="id_password_login" required="true" type="password" placeholder="Enter password..." autocomplete="new-password">
+      <input  type="submit"  class="loginCred" id="id_submit_login" value="LOGIN"> 
+      <a href="/signup" class="anchorLogin" id="id_register_login"> Don't have an account Register ?</a>
+      <a href="/reset_password" class="anchorLogin" id="id_forgot_login"> Forgot password ? </a>
+    {% if errorMessages %}
+    <div id='errorMessage'>
+        <p>{{errorMessages}}</p>
+    </div>
+    {% endif %}
+    {% if messages %}
+    <div id='infoMessage'>
+      {% for message in messages %}
+        <span>{{message}}</span>
+      {% endfor %}  
+    </div>
+    {% endif %}
+  </div>
+</form>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r68/three.min.js"></script>
+<script src="{% static 'js/login.js' %}"></script>
+{% endblock %}

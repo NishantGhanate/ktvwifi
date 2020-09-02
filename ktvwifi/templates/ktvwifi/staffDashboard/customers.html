@@ -1,0 +1,78 @@
+{% extends 'ktvwifi/staffDashboard/main.html' %}
+
+{% load static %}
+{% block title %} customers {% endblock%}
+
+{% block content %}
+
+<div class="newContainer">
+    <form action="" method="get">
+    <div class="form-row">
+      <div class="form-group col-md-3">
+        <label for="username">Username</label>
+        <input type="text" class="form-control" name="username" id="username" placeholder="username">
+      </div>
+      <div class="form-group col-md-3">
+        <label for="Email">Email</label>
+        <input type="text" class="form-control" name="email" id="email" placeholder="email">
+      </div>
+      <div class="form-group col-md-3">
+        <button type="submit" class="btn btn-primary" style="margin-top: 30px;"> Submit
+      </div>
+    </div>
+  </form>
+
+    <table class="table table-striped" style="margin: auto;">
+      <thead class="thead-dark">
+        <tr>
+          <th> FirstName </th>
+          <th> Lastname </th>
+          <th> Username </th>
+          <th> Phone </th>
+          <th> Email </th>
+          <th> Address </th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for u in users %}
+          <tr>
+            <td> {{u.first_name}} </td>
+            <td> {{u.last_name}} </td>
+            <td> {{u.username}} </td>
+            <td> {{u.customer.phone}} </td>
+            <td> {{u.email}} </td>
+            <td> {{u.customer.address}} </td>
+
+          </tr>
+          {% endfor %}
+        </tbody>
+    </table>
+
+    <div>
+      {% if users.has_other_pages %}
+      <ul class="pagination">
+        {% if users.has_previous %}
+          <li class="page-item"><a class="page-link" href="?page={{ users.previous_page_number }}">&laquo;</a></li>
+        {% else %}
+          <li class="disabled"><a class="page-link">&laquo;</a></li>
+        {% endif %}
+        {% for i in users.paginator.page_range %}
+          {% if users.number == i %}
+            <li class="page-item"><a class="page-link">{{ i }} <span class="sr-only">(current)</span></a></li>
+          {% else %}
+            <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+          {% endif %}
+        {% endfor %}
+        {% if users.has_next %}
+          <li class="page-item"><a class="page-link" href="?page={{ users.next_page_number }}">&raquo;</a></li>
+        {% else %}
+          <li class="disabled"><a class="page-link">&raquo;</a></li>
+        {% endif %}
+      </ul>
+      {% endif %}
+    </div>
+  </div>
+
+
+<script src="{% static 'js/dashboard.js' %}"></script>
+{% endblock %}
