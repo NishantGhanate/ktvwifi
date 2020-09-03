@@ -11,11 +11,11 @@ class InternetPlans(models.Model):
     speed = models.CharField(max_length=200 , null=True)
     price = models.IntegerField(null=True)
     validity = models.IntegerField(null=True)
+    message = models.TextField(null=True)
+    image = models.ImageField(null=True , blank=True)
     date_created = models.DateTimeField(auto_now_add=True)
-
     def __str__(self):
-        return self.speed + ' Mbps ' + str(self.price) + ' Price ' + str(self.validity) + ' Days '
-
+        return  "%s" % self.speed
 class Contact(models.Model):
     STATUS_CHOICES = (
     ('p', 'Pending'),

@@ -1,0 +1,159 @@
+{% extends 'ktvwifi/staffDashboard/main.html' %}
+
+{% load static %}
+{% block title %} Dashboard Home {% endblock%}
+
+{% block content %}
+
+<div class="newContainer">
+  <form action="" method="get">
+    <div class="form-row">
+      <div class="form-group col-md-3">
+        <label for="username">Speed</label>
+        <input type="text" class="form-control" name="speed" id="speed" placeholder="speed">
+      </div>
+      <div class="form-group col-md-3">
+        <label for="Email">Price</label>
+        <input type="text" class="form-control" name="price" id="price" placeholder="price">
+      </div>
+      <div class="form-group col-md-3">
+        <label for="Email">Validity</label>
+        <input type="text" class="form-control" name="validity" id="validity" placeholder="validity">
+      </div>
+      <div class="form-group col-md-3">
+        <button type="submit" class="btn btn-primary" style="margin-top: 30px;">  <i class="fa fa-search"></i>  Search
+      </div>
+    </div>
+  </form>
+      <table class="table table-striped" style="margin: auto;">
+        <thead class="thead-dark">
+          <tr>
+            <th> Speed (Mbps)  </th>
+            <th> Price (₹)   </th>
+            <th> Validity (Days) </th>
+            <th> Image </th>
+            <th> Message </th>
+            <th> Update </th>
+            <th> Delete </th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for p in plans %}
+            <tr>
+              <td class="internetSpeed"> {{p.speed}} </td>
+              <td class="internetPrice"> {{p.price}}  </td>
+              <td class="internetValidity"> {{p.validity}} </td>
+              <td class="internetImage"><a href="/images/{{p.image}}"> {{p.image}}  </a> </td>
+              <td class="internetMessage">  {{p.message}}  </td>
+              <td>  
+               <button type="button" class="btn btn-warning view" data-toggle="modal" data-target="#updatePlansModal" onclick="updatePlan('{{ forloop.counter0 }}')">
+                Update
+              </button> 
+               </td>
+               <td>  
+                <input type="button" class="btn btn-danger view" data-toggle="modal" value="Delete" data-target="#deletePlansModal" onclick="deletePlan('{{ p.id }}')">
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+      </table>
+    <div>
+    <br>
+    {% if plans.has_other_pages %}
+        <ul class="pagination">
+          {% if plans.has_previous %}
+            <li class="page-item"><a class="page-link" href="?page={{ plans.previous_page_number }}">&laquo;</a></li>
+          {% else %}
+            <li class="disabled"><a class="page-link">&laquo;</a></li>
+          {% endif %}
+          {% for i in plans.paginator.page_range %}
+            {% if plans.number == i %}
+              <li class="page-item"><a class="page-link">{{ i }} <span class="sr-only">(current)</span></a></li>
+            {% else %}
+              <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+            {% endif %}
+          {% endfor %}
+          {% if plans.has_next %}
+            <li class="page-item"><a class="page-link" href="?page={{ plans.next_page_number }}">&raquo;</a></li>
+          {% else %}
+            <li class="disabled"><a class="page-link">&raquo;</a></li>
+          {% endif %}
+        </ul>
+        {% endif %}
+      </div>
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#updatePlansModal">
+        Add a new plan
+    </button>
+</div>
+
+<form action= "/dashboard/internetplans " method="post" enctype="multipart/form-data" id='plansForm'>
+    {% csrf_token %}
+  <!-- Read Modal -->
+  <div class="modal fade" id="updatePlansModal" tabindex="-1" role="dialog" aria-labelledby="updatePlansModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h6 class="modal-title" id="readComplaintDate">Update</h6>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="Speed">Speed:</label>
+            <input id="speedModal" type="text" name="speed" class="form-control" value="" placeholder="" >
+          </div>
+            <div class="form-group">
+              <label for="Price">Price:</label>
+              <input id="priceModal" type="text" name="price" class="form-control" value="" placeholder="" >
+            </div>
+            <div class="form-group">
+               <label for="Validity">Validity:</label>
+              <input id="validityModal" type="text" name="validity" class="form-control" value="" placeholder="" >
+            </div>
+            <div class="form-group">
+              <label for="Message">Message:</label>
+              <textarea id="messageModal" name="message" class="form-control" placeholder="Write something.." style="height: 100px;" ></textarea>
+            </div>
+            <div class="form-group">
+                <input type="file" name="image" id="imageModal">
+            </div>
+        </div>
+        <!-- modal-footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+<form id="deletePlan" action =  "{% url 'deletePlan' %}" method="POST">
+  {% csrf_token %}
+  <div class="modal" id="deletePlansModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Deletion</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Are you sure you want to delete it? </p>
+        </div>
+        <div class="modal-footer">
+          <input type="hidden" name="id" id="planIdModal" value="">
+          <button type="submit" class="btn btn-danger">Delete</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+
+
+
+{% endblock %}

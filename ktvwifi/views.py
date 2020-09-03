@@ -12,7 +12,7 @@ from django.core import serializers
 
 from .decoraters  import unauthenticatedUser ,  allowed_user , admin_only
 from .models import InternetPlans , Contact , Complaint , Customer , Faq , Contact
-from .forms import ContactForm , CreateUserForm , ComplaintForm , CustomerForm
+from .forms import ContactForm , CreateUserForm , ComplaintForm , CustomerForm , InternetPlansForm
 from .fiters import InternetPlansFilter , UsersFilter , ComplaintFilter , ContactFilter
 
 # Create your views here.
@@ -31,7 +31,7 @@ def features(request):
 def pricing(request):
     # context : rtype - dict
     plans =  InternetPlans.objects.all()
-    paginator = Paginator(plans, 10)
+    paginator = Paginator(plans, 9)
     page = request.GET.get('page', 1)
     try:
         posts = paginator.page(page)
@@ -185,7 +185,10 @@ def userComplaints(request):
 
 @login_required(login_url='loginPage')
 def userSettings(request):
-    customer = Customer.objects.get(user=request.user)
+    try :
+        customer = Customer.objects.get(user=request.user)
+    except Customer.DoesNotExist:
+        return redirect('/')
     context = {'user': request.user , 'customer' : customer}
     if request.is_ajax and request.method == "POST":
         # get the form data
@@ -218,8 +221,7 @@ def adminHome(request):
 @login_required(login_url='loginPage')
 @admin_only
 def adminCustomers(request):
-    # users_all = User.objects.filter(groups__name='customer')
-    users_all = User.objects.all().select_related('customer').filter(groups__name='customer')
+    users_all = User.objects.filter(groups__name='customer')
     paginator = Paginator(users_all, 10)
     page = request.GET.get('page', 1)
     try:
@@ -246,7 +248,8 @@ def adminComplaints(request):
         return redirect('complaints')
 
     complaints_all = Complaint.objects.all().order_by('-date_created')
-    paginator = Paginator(complaints_all, 9)
+    myfilter = ComplaintFilter(request.GET , queryset=complaints_all)
+    paginator = Paginator( myfilter.qs, 7)
     page = request.GET.get('page', 1)
     try:
         complaints = paginator.page(page)
@@ -255,8 +258,7 @@ def adminComplaints(request):
  
     except EmptyPage:
         complaints = paginator.page(paginator.num_pages)
-    myfilter = ComplaintFilter(request.GET , queryset=complaints_all)
-    complaints = myfilter.qs
+   
 
     # for status dropdown menu
     form= ComplaintForm()
@@ -277,18 +279,15 @@ def adminContact(request):
         return redirect('contacts')
 
     contacts_all = Contact.objects.all().order_by('-date_created')
-    paginator = Paginator(contacts_all, 9)
+    myfilter = ContactFilter(request.GET , queryset=contacts_all)
+    paginator = Paginator(myfilter.qs, 9)
     page = request.GET.get('page', 1)
     try:
         contacts = paginator.page(page)
     except PageNotAnInteger:
         contacts = paginator.page(1)
-
-    myfilter = ContactFilter(request.GET , queryset=contacts_all)
-    contacts = myfilter.qs
     context = {'contacts' : contacts , 'myfilter':myfilter}
     return render(request,'ktvwifi/staffDashboard/contact.html' , context)
-
 
 def sendEmail(userEmail,emailSubject,emailBody):
     email = EmailMessage(
@@ -299,4 +298,55 @@ def sendEmail(userEmail,emailSubject,emailBody):
             )
     email.send(fail_silently=False)
     
-    
+
+@login_required(login_url='loginPage')
+@admin_only
+def adminPlans(request): 
+    plans_all =  InternetPlans.objects.all().order_by('-date_created')
+    myfilter = InternetPlansFilter(request.GET , queryset=plans_all)
+    paginator  = Paginator( myfilter.qs, 7)
+    page = request.GET.get('page', 1)
+    try:
+        plans = paginator.page(page)
+    except PageNotAnInteger:
+        plans = paginator.page(1)
+ 
+    except EmptyPage:
+        plans = paginator.page(paginator.num_pages)
+
+   
+    context = {'plans':plans ,'page':page}
+
+    if request.method == 'POST':
+        form = InternetPlansForm(request.POST,files=request.FILES)
+        if form.is_valid():
+            p = form.save(commit=False)
+            internet, created  =  InternetPlans.objects.get_or_create(speed=p.speed , price=p.price , validity=p.validity )
+            if created:
+                internet.message = p.message
+                internet.image = p.image
+                internet.save()
+            else:
+                internet.message = p.message
+                if p.image :
+                    internet.image = p.image
+                internet.save()
+        else:
+            ## some form errors occured.
+            context = {'plans':plans , 'error': form.errors , 'page':page}
+            render(request,'ktvwifi/staffDashboard/internetplans.html' , context)
+
+    return render(request,'ktvwifi/staffDashboard/internetplans.html' , context)
+
+@login_required(login_url='loginPage')
+@admin_only
+def adminPlansDelete(request):
+    if request.method == 'POST':
+        print(request.POST.get('id'))
+        result = InternetPlans.objects.get(id = request.POST.get('id'))
+        print(result)
+        if result:
+            result.delete()
+            return redirect('plans')
+        else:
+            return redirect('plans')
