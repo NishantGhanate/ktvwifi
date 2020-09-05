@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models  import User
-from .models import Complaint , Contact , Customer , InternetPlans
+from .models import *
 
 
 class ContactForm(forms.ModelForm):
@@ -28,3 +28,8 @@ class InternetPlansForm(forms.ModelForm):
     class Meta: 
         model = InternetPlans 
         fields = ['speed','price', 'validity','image','message'] 
+
+class FaqForm(forms.ModelForm):
+    class Meta: 
+        model =  Faq
+        fields = ['title','solution'] 

@@ -11,9 +11,9 @@ from django.core.mail import EmailMessage
 from django.core import serializers
 
 from .decoraters  import unauthenticatedUser ,  allowed_user , admin_only
-from .models import InternetPlans , Contact , Complaint , Customer , Faq , Contact
-from .forms import ContactForm , CreateUserForm , ComplaintForm , CustomerForm , InternetPlansForm
-from .fiters import InternetPlansFilter , UsersFilter , ComplaintFilter , ContactFilter
+from .models import *
+from .forms import *
+from .fiters import *
 
 # Create your views here.
 def homePage(request):
@@ -310,27 +310,25 @@ def adminPlans(request):
         plans = paginator.page(page)
     except PageNotAnInteger:
         plans = paginator.page(1)
- 
     except EmptyPage:
         plans = paginator.page(paginator.num_pages)
-
-   
     context = {'plans':plans ,'page':page}
-
     if request.method == 'POST':
         form = InternetPlansForm(request.POST,files=request.FILES)
         if form.is_valid():
             p = form.save(commit=False)
-            internet, created  =  InternetPlans.objects.get_or_create(speed=p.speed , price=p.price , validity=p.validity )
-            if created:
-                internet.message = p.message
-                internet.image = p.image
-                internet.save()
+            if not request.POST['id']:
+                p.save()
             else:
-                internet.message = p.message
-                if p.image :
-                    internet.image = p.image
-                internet.save()
+                plans = InternetPlans.objects.get(id=request.POST['id'])
+                if p.image:
+                    plans.image = p.image
+                plans.speed = p.speed
+                plans.price = p.price
+                plans.validity = p.validity
+                plans.message = p.message
+                plans.save()
+            return redirect('plans')
         else:
             ## some form errors occured.
             context = {'plans':plans , 'error': form.errors , 'page':page}
@@ -342,11 +340,54 @@ def adminPlans(request):
 @admin_only
 def adminPlansDelete(request):
     if request.method == 'POST':
-        print(request.POST.get('id'))
         result = InternetPlans.objects.get(id = request.POST.get('id'))
-        print(result)
         if result:
             result.delete()
             return redirect('plans')
         else:
             return redirect('plans')
+
+@login_required(login_url='loginPage')
+@admin_only
+def adminFaq(request):
+    faqList =  Faq.objects.all().order_by('-date_created')
+    myfilter = InternetPlansFilter(request.GET,queryset=faqList)
+    paginator = Paginator(myfilter.qs, 9)
+    page = request.GET.get('page', 1)
+    try:
+        faq = paginator.page(page)
+    except PageNotAnInteger:
+        faq = paginator.page(1)
+ 
+    except EmptyPage:
+        faq = paginator.page(paginator.num_pages)
+    
+    if request.method == 'POST':
+        form = FaqForm(request.POST)
+        if form.is_valid():
+            p = form.save(commit=False)
+            if not request.POST['id']:
+                p.save()
+            else:
+                f = Faq.objects.get(id=request.POST.get('id'))
+                f.title = p.title
+                f.solution = p.solution
+                f.save()
+            return redirect('faq')
+        else:
+            ## some form errors occured.
+            context = {'faq':faq , 'error': form.errors , 'page':page}
+            render(request,'ktvwifi/staffDashboard/faq.html' , context)
+
+    return render(request, 'ktvwifi/staffDashboard/faq.html', {'page':page,'faq':faq})
+
+@login_required(login_url='loginPage')
+@admin_only
+def adminFaqDelete(request):
+    if request.method == 'POST':
+        result = Faq.objects.get(id = request.POST.get('id'))
+        if result:
+            result.delete()
+            return redirect('faq')
+        else:
+            return redirect('faq')

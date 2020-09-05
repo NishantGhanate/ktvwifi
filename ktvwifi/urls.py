@@ -27,4 +27,6 @@ urlpatterns = [
     path('dashboard/contacts', views.adminContact , name = 'contacts'),
     path('dashboard/internetplans', views.adminPlans , name = 'plans'),
     path('dashboard/internetplans/delete', views.adminPlansDelete , name = 'deletePlan'),
+    path('dashboard/faq', views.adminFaq , name = 'faq'),
+    path('dashboard/faq/delete', views.adminFaqDelete , name = 'deleteFaq'),
 ]

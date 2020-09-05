@@ -3,24 +3,24 @@
 
 ### Things to work on
 
-- [] Website
+- [ ] Website
     - [] Home
     - [x] Pricing
     - [x] Contactus
     - [x] Faq
     - [x] User login / Signup
-- [] Admin dashboard
+- [ ] Admin dashboard
     - [x] Customers 
-    - [] Recharges
+    - [ ] Recharges
     - [x] Complaints 
     - [x] Contacs Email shoot
     - [x] Internet Plans CRUD
-    - [] FAQ 
+    - [ ] FAQ 
 - [x] User dashboard
     - [x] Home view Rechagers and Complaints Count 
     - [] Recharges
     - [x] Complaints
-- [] Gpay UPI Payment gateway
-    - [] Setup merchant account gpay India
-    - [] Roller coster
-    - [] Demo test
+- [ ] Gpay UPI Payment gateway
+    - [ ] Setup merchant account gpay India
+    - [ ] Roller coster
+    - [ ] Demo test

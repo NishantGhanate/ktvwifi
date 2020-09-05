@@ -1,7 +1,7 @@
 {% extends 'ktvwifi/staffDashboard/main.html' %}
 
 {% load static %}
-{% block title %} customers {% endblock%}
+{% block title %} Complaints {% endblock%}
 
           
 {% block content %}
@@ -48,7 +48,6 @@
           {% endfor %}
         </tbody>
     </table>
-
     <div>
         <br>
       {% if complaints.has_other_pages %}
@@ -73,7 +72,6 @@
       </ul>
       {% endif %}
     </div>
-
 </div>
 
 <form action="/dashboard/complaints" enctype="multipart/form-data" method="post">
@@ -124,8 +122,5 @@
   </div>
 </div>
 </form>
-
-<script src="{% static 'js/main.js' %}"></script>
-<script src="{% static 'js/dashboard.js' %}"></script>
 
 {% endblock %}

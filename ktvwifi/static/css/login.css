@@ -68,12 +68,12 @@ canvas{
   border: none;
   color: white;
   text-align: center;
-  background-color: turquoise;
+  background-color: #338AFF;
   box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
  
 }
 
-#id_submit_login:hover {background-color: rgb(56, 206, 191)}
+#id_submit_login:hover {background-color:#2970ce}
 
 #id_submit_login:active {
   background-color: rgb(50, 190, 176);

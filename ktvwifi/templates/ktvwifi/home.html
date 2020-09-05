@@ -5,35 +5,41 @@
 
 {% block content %}
 
-
-<div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light">
-    <div class="col-md-5 p-lg-5 mx-auto my-5">
-      <svg id="logo" width="436" height="111" viewBox="0 0 436 111" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path stroke="#292b2c" stroke-width="5" d="M54.52 111L13.192 65.208V111H0.0880127V10.632H13.192V57.144L54.664 10.632H71.224L25.72 60.888L71.656 111H54.52Z" ></path>
-        <path stroke="#292b2c" stroke-width="5" d="M102.275 42.888V89.4C102.275 93.24 103.091 95.976 104.723 97.608C106.355 99.144 109.187 99.912 113.219 99.912H122.867V111H111.059C103.763 111 98.2911 109.32 94.6431 105.96C90.9951 102.6 89.1711 97.08 89.1711 89.4V42.888H78.9471V32.088H89.1711V12.216H102.275V32.088H122.867V42.888H102.275Z" stroke-width="5"></path>
-        <path stroke="#292b2c" stroke-width="5" d="M168.12 98.904L192.6 32.088H206.568L175.608 111H160.344L129.384 32.088H143.496L168.12 98.904Z" ></path>
-        <path stroke="#292b2c" stroke-width="5" d="M324.583 32.088L299.959 111H286.423L267.415 48.36L248.407 111H234.871L210.103 32.088H223.495L241.639 98.328L261.223 32.088H274.615L293.767 98.472L311.623 32.088H324.583Z" ></path>
-        <path stroke="#292b2c" stroke-width="5" d="M344.356 19.272C341.86 19.272 339.748 18.408 338.02 16.68C336.292 14.952 335.428 12.84 335.428 10.344C335.428 7.84799 336.292 5.736 338.02 4.008C339.748 2.27999 341.86 1.41599 344.356 1.41599C346.756 1.41599 348.772 2.27999 350.404 4.008C352.132 5.736 352.996 7.84799 352.996 10.344C352.996 12.84 352.132 14.952 350.404 16.68C348.772 18.408 346.756 19.272 344.356 19.272ZM350.692 32.088V111H337.588V32.088H350.692Z" ></path>
-        <path stroke="#292b2c" stroke-width="5" d="M405.138 42.888H388.578V111H375.474V42.888H365.25V32.088H375.474V26.472C375.474 17.64 377.729 11.208 382.241 7.176C386.849 3.04799 394.193 0.983994 404.273 0.983994V11.928C398.513 11.928 394.434 13.08 392.034 15.384C389.73 17.592 388.578 21.288 388.578 26.472V32.088H405.138V42.888Z" stroke-width="5"></path>
-        <path stroke="#292b2c" stroke-width="5" d="M427.184 19.272C424.688 19.272 422.576 18.408 420.848 16.68C419.12 14.952 418.256 12.84 418.256 10.344C418.256 7.84799 419.12 5.736 420.848 4.008C422.576 2.27999 424.688 1.41599 427.184 1.41599C429.584 1.41599 431.6 2.27999 433.232 4.008C434.96 5.736 435.824 7.84799 435.824 10.344C435.824 12.84 434.96 14.952 433.232 16.68C431.6 18.408 429.584 19.272 427.184 19.272ZM433.52 32.088V111H420.416V32.088H433.52Z"></path>
-    </svg>
-    <br> 
-      <p class="lead font-weight-normal"> <br>And an even wittier subheading to boot. Jumpstart your marketing efforts with this example based on Apple's marketing pages.</p>
-      <a class="btn btn-outline-secondary" href="/pricing"> Pricing </a>
+<!-- ======= Hero Section ======= -->
+<section id="hero" class="d-flex align-items-center" style="position: absolute; top:25%;left: 10%; z-index: -99;">
+    <div class="container">
+      <div class="row" >
+        <div class="col-lg-6 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1" data-aos="fade-up" data-aos-delay="200" >
+          <svg id="logo" width="336" height="111" viewBox="0 0 436 111" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path stroke="#ffffff" stroke-width="5" d="M54.52 111L13.192 65.208V111H0.0880127V10.632H13.192V57.144L54.664 10.632H71.224L25.72 60.888L71.656 111H54.52Z" ></path>
+            <path stroke="#ffffff" stroke-width="5" d="M102.275 42.888V89.4C102.275 93.24 103.091 95.976 104.723 97.608C106.355 99.144 109.187 99.912 113.219 99.912H122.867V111H111.059C103.763 111 98.2911 109.32 94.6431 105.96C90.9951 102.6 89.1711 97.08 89.1711 89.4V42.888H78.9471V32.088H89.1711V12.216H102.275V32.088H122.867V42.888H102.275Z"></path>
+            <path stroke="#ffffff" stroke-width="5" d="M168.12 98.904L192.6 32.088H206.568L175.608 111H160.344L129.384 32.088H143.496L168.12 98.904Z" ></path>
+            <path stroke="#ffffff" stroke-width="5" d="M324.583 32.088L299.959 111H286.423L267.415 48.36L248.407 111H234.871L210.103 32.088H223.495L241.639 98.328L261.223 32.088H274.615L293.767 98.472L311.623 32.088H324.583Z" ></path>
+            <path stroke="#ffffff" stroke-width="5" d="M344.356 19.272C341.86 19.272 339.748 18.408 338.02 16.68C336.292 14.952 335.428 12.84 335.428 10.344C335.428 7.84799 336.292 5.736 338.02 4.008C339.748 2.27999 341.86 1.41599 344.356 1.41599C346.756 1.41599 348.772 2.27999 350.404 4.008C352.132 5.736 352.996 7.84799 352.996 10.344C352.996 12.84 352.132 14.952 350.404 16.68C348.772 18.408 346.756 19.272 344.356 19.272ZM350.692 32.088V111H337.588V32.088H350.692Z" ></path>
+            <path stroke="#ffffff" stroke-width="5" d="M405.138 42.888H388.578V111H375.474V42.888H365.25V32.088H375.474V26.472C375.474 17.64 377.729 11.208 382.241 7.176C386.849 3.04799 394.193 0.983994 404.273 0.983994V11.928C398.513 11.928 394.434 13.08 392.034 15.384C389.73 17.592 388.578 21.288 388.578 26.472V32.088H405.138V42.888Z" ></path>
+            <path stroke="#ffffff" stroke-width="5" d="M427.184 19.272C424.688 19.272 422.576 18.408 420.848 16.68C419.12 14.952 418.256 12.84 418.256 10.344C418.256 7.84799 419.12 5.736 420.848 4.008C422.576 2.27999 424.688 1.41599 427.184 1.41599C429.584 1.41599 431.6 2.27999 433.232 4.008C434.96 5.736 435.824 7.84799 435.824 10.344C435.824 12.84 434.96 14.952 433.232 16.68C431.6 18.408 429.584 19.272 427.184 19.272ZM433.52 32.088V111H420.416V32.088H433.52Z"></path>
+        </svg>
+        <br>
+        <h2 style="color :rgba(255, 255, 255, 0.6);">A Better Internet connection </h2>
+        <h5 style="color :rgba(255, 255, 255, 0.6);">We are team of talented engineers proiving cable Internet</h5>
+        <br>
+          <div class="d-lg-flex" style="margin-bottom:20px;">
+            <a href="/pricing"><Button class="btn btn-primary"> Get Started </Button></a>
+            <br>
+          </div>
+        </div>
+        <div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-in" data-aos-delay="200">
+          <img src="{% static '/images/hero-img.png' %}" class="img-fluid" alt="">
+        </div>
+      </div>
     </div>
-    <div class="product-device box-shadow d-none d-md-block"></div>
-    <div class="product-device product-device-2 box-shadow d-none d-md-block"></div>
-</div>
-
-
-<div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light">
-    <div class="col-md-5 p-lg-5 mx-auto my-5">
-        
-    </div>
-</div>
+</section>
  
 
-
-
-
+<style>
+  body {
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: #37517e !important;
+}
+</style>
 {% endblock %}

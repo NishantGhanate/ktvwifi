@@ -21,3 +21,9 @@ class ComplaintFilter(django_filters.FilterSet):
     class Meta:
         model = Complaint
         fields = ['user']
+
+class FaqFilter(django_filters.FilterSet):
+    class Meta:
+        model = Faq
+        fields = ['title','solution']
+
