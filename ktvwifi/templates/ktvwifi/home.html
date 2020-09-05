@@ -6,7 +6,7 @@
 {% block content %}
 
 <!-- ======= Hero Section ======= -->
-<section id="hero" class="d-flex align-items-center" style="position: absolute; top:25%;left: 10%; z-index: -99;">
+<section id="hero" class="d-flex align-items-center">
     <div class="container">
       <div class="row" >
         <div class="col-lg-6 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1" data-aos="fade-up" data-aos-delay="200" >
@@ -21,7 +21,7 @@
         </svg>
         <br>
         <h2 style="color :rgba(255, 255, 255, 0.6);">A Better Internet connection </h2>
-        <h5 style="color :rgba(255, 255, 255, 0.6);">We are team of talented engineers proiving cable Internet</h5>
+        <h5 style="color :rgba(255, 255, 255, 0.6);">We are team of talented engineers proiving  cable Internet</h5>
         <br>
           <div class="d-lg-flex" style="margin-bottom:20px;">
             <a href="/pricing"><Button class="btn btn-primary"> Get Started </Button></a>
@@ -40,6 +40,21 @@
   body {
   font-family: Arial, Helvetica, sans-serif;
   background-color: #37517e !important;
+}
+#hero{
+  position: relative; 
+  top:28%;
+  left: 0% ;
+  transform: translate(0%,28%);; 
+}
+@media screen and (max-width: 600px) {
+  #hero{
+    position: relative; 
+    top:5%;
+    left: 0% ;
+    transform: translate(0%,5%);; 
+  }
+  
 }
 </style>
 {% endblock %}
