@@ -8,11 +8,7 @@ canvas{
 
 .centerForm{
   z-index: -1;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  width: 30%;
-  transform: translate(-50%, -50%);
+  position: relative;
 }
 
 
@@ -22,7 +18,6 @@ canvas{
 }
 
 #centerFormHeader h3{
-  /* position: absolute; */
   margin: auto;
   display: block;
   margin-top: 15px;
@@ -37,7 +32,7 @@ canvas{
   margin: auto;
   display: block;
   position: relative;
-  width: 80%;
+  width: 100%;
   height: 40px;
   border : solid white;
   border-radius: 5px;
@@ -53,18 +48,19 @@ canvas{
 
 #id_username_login , #id_username_signup{
   background: url("/static/icons/iconUser.png") no-repeat scroll 7px 7px;
+  background-color: white;
   background-size: 25px;
   padding-left:35px;
 }
 
 #id_password_login , #id_password1 , #id_password2{
   background: url("/static/icons/iconLock.png") no-repeat scroll 7px 7px;
+  background-color: white;
   background-size: 25px;
   padding-left:35px;
 }
 
 #id_submit_login{
-  margin-top: 10%;
   border: none;
   color: white;
   text-align: center;
@@ -76,14 +72,13 @@ canvas{
 #id_submit_login:hover {background-color:#2970ce}
 
 #id_submit_login:active {
-  background-color: rgb(50, 190, 176);
+  background-color:#245fac;
   box-shadow: 0 5px #666;
   transform: translateY(4px);
 }
 
 #id_register_login , #id_forgot_login{
   display:block;
-  margin-left: 45px;
   font-size: 14px;
 }
 
@@ -101,7 +96,12 @@ canvas{
 
 /* SignupForm  */
 #id_username_signup{
-  margin-top: 22%;
+  margin-top: 10px;
+  background-color: white;
+}
+
+#id_email_signup{
+  background-color: white;
 }
 
 #errorMessage{
@@ -133,22 +133,17 @@ canvas{
 }
 #id_email{
   margin: auto;
-  height: 20%;
-  width: 100%;
-  margin-left: 10%;
   background: url("/static/icons/iconLock.png") no-repeat scroll 7px 7px;
   background-size: 20px;
   padding-left:35px;
-  border-radius: 12px;
+  background-color: white;
 }
 .pwdResetButton{
   display: block;
   margin-top: 10%;
-  margin-left: 10%;
   color: white;
-  height: 20%;
+  height: 40px;
   width: 100%;
-  border-radius: 12px;
   font-weight: 700;
   background-image: linear-gradient(-45deg, #FFA63D, #FF3D77, #338AFF, #3CF0C5);
   transition: 0.1s;
@@ -172,16 +167,18 @@ transform: translateY(4px);
   transition: 0.1s;
 }
 
+.form-control{
+  height: 40px !important;
+}
 
 /* Mobile screen  */
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 970px) {
   
-  .centerForm{
-    width: 80%;
+  .container{
+    width: 100% !important;
   }
-
   .loginCred{
-    width: 90%;
+    width: 100%;
     height: 40px;
   }
 

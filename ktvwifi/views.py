@@ -31,7 +31,7 @@ def features(request):
 def pricing(request):
     # context : rtype - dict
     plans =  InternetPlans.objects.all()
-    paginator = Paginator(plans, 9)
+    paginator = Paginator(plans, 12)
     page = request.GET.get('page', 1)
     try:
         posts = paginator.page(page)

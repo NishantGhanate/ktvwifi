@@ -27,7 +27,7 @@ class ComplaintForm(forms.ModelForm):
 class InternetPlansForm(forms.ModelForm):
     class Meta: 
         model = InternetPlans 
-        fields = ['speed','price', 'validity','image','message'] 
+        fields = ['speed','price','validity','message'] 
 
 class FaqForm(forms.ModelForm):
     class Meta: 
