@@ -29,6 +29,7 @@ DEBUG = config('DEBUG', cast=bool)
 
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
 
+SETTINGS_PATH = os.path.dirname(os.path.dirname(__file__))
 
 # Application definition
 

@@ -150,7 +150,7 @@ def loginPage(request):
 
 def logoutUser(request):
     logout(request)
-    return redirect('homePage')
+    return redirect('home')
 
 # User panel 
 @login_required(login_url='loginPage')
