@@ -31,8 +31,8 @@
 
 | Website       | URL                  |
 | ------------- | ------------------------------ |
-| `Heroku`      | https://ktvwifi.herokuapp.com/ |
-| `Pythonanywhere`   | https://nishantghanate.pythonanywhere.com/ |
+| Heroku      | https://ktvwifi.herokuapp.com/ |
+| Pythonanywhere   | https://nishantghanate.pythonanywhere.com/ |
 
 <br/>
 
@@ -51,13 +51,15 @@ In Cli : 1.Create virtual env , 2. Install requirements
 ```
 
 ### Generate Django secret key :
+```sh
+from django.core.management.utils import get_random_secret_key
 
-> from django.core.management.utils import get_random_secret_key
-> get_random_secret_key()
+get_random_secret_key()
 
->'[GENERATED KEY]'
+'[GENERATED KEY]'
+```
 
-<br/>
+&nbsp;
 
 ### Env file
 Simply create a .env text file on your repository’s root directory in the form & paste secertkey :
